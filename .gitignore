@@ -1,0 +1,24 @@
+# vscode
+.vscode 
+
+# Intellij
+*.iml
+.idea
+
+# npm
+node_modules
+
+# Don't include build artifacts in the repo.
+# They should be uploaded to GitHub releases instead.
+main.js
+# pdf.worker.min.js is copied from pdfjs-dist by esbuild at build time.
+pdf.worker.min.js
+
+# Exclude sourcemaps
+*.map
+
+# obsidian
+data.json
+
+# Exclude macOS Finder (System Explorer) View States
+.DS_Store
