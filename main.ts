@@ -349,7 +349,22 @@ export default class PDFToMarkdownPlugin extends Plugin {
       combinedMarkdown += md + "\n\n";
     }
 
-    return combinedMarkdown;
+    // Mistral OCR は数式を LaTeX の \( \) / \[ \] で返すが、Obsidian の
+    // MathJax は $...$ / $$...$$ しか認識しないため変換する（未変換だと
+    // 数式が生テキスト＝バックスラッシュ付きで「崩れて」表示される）。
+    return this.convertMathDelimiters(combinedMarkdown);
+  }
+
+  // LaTeX の数式デリミタを Obsidian (MathJax) 形式へ変換する。
+  //   \[ ... \]  ->  $$ ... $$   (ディスプレイ数式)
+  //   \( ... \)  ->  $ ... $     (インライン数式)
+  // 既に $ で書かれたコードブロック等を壊さないよう、デリミタ記号のみ置換する。
+  convertMathDelimiters(md: string): string {
+    return md
+      .replace(/\\\[/g, "$$$$")  // \[ -> $$
+      .replace(/\\\]/g, "$$$$")  // \] -> $$
+      .replace(/\\\(/g, "$$")    // \( -> $
+      .replace(/\\\)/g, "$$");   // \) -> $
   }
 
   async renderPdfPage(pdfDoc: PDFDocumentProxy, page: MistralPage): Promise<RenderedPdfPage> {
