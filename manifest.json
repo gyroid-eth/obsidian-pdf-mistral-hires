@@ -1,7 +1,7 @@
 {
 	"id": "pdf-mistral-plugin",
 	"name": "PDF Mistral (Hi-Res)",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"minAppVersion": "0.15.0",
 	"description": "Convert PDFs to Markdown with Mistral OCR, extracting figures at high resolution (pdf.js re-render + bbox crop). Fork of Mekann's pdf-mistral.",
 	"author": "gyroid",
